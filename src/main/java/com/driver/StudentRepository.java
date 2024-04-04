@@ -18,41 +18,57 @@ public class StudentRepository {
     }
 
     public void saveStudent(Student student){
-        // your code goes here
+        studentMap.put(student.getName(), student);
     }
 
     public void saveTeacher(Teacher teacher){
-        // your code goes here
+        teacherMap.put(teacher.getName(), teacher);
     }
 
     public void saveStudentTeacherPair(String student, String teacher){
         if(studentMap.containsKey(student) && teacherMap.containsKey(teacher)){
-            // your code goes here
+            ArrayList<String> temp = (ArrayList<String>) teacherStudentMapping.get(teacher);
+            temp.add(student);
+            teacherStudentMapping.put(teacher, temp);
+        } else {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(student);
+            teacherStudentMapping.put(teacher, temp);
         }
+        Teacher teacherObject = teacherMap.get(teacher);
+        teacherObject.setNumberOfStudents(teacherObject.getNumberOfStudents()+1);
     }
 
     public Student findStudent(String student){
-        // your code goes here
+        return studentMap.getOrDefault(student, null);
     }
 
     public Teacher findTeacher(String teacher){
-        // your code goes here
+        return teacherMap.getOrDefault(teacher, null);
     }
 
     public List<String> findStudentsFromTeacher(String teacher){
-        // your code goes here
-        // find student list corresponding to a teacher
+        return teacherStudentMapping.getOrDefault(teacher, new ArrayList<>());
     }
 
     public List<String> findAllStudents(){
-        // your code goes here
+        return new ArrayList<>(studentMap.keySet());
     }
 
     public void deleteTeacher(String teacher){
-        // your code goes here
+        for(String tName: teacherStudentMapping.get(teacher)){
+            studentMap.remove(tName);
+        }
+
+        teacherMap.remove(teacher);
+        teacherStudentMapping.remove(teacher);
     }
 
     public void deleteAllTeachers(){
-        // your code goes here
+        for(String teacher: teacherMap.keySet()){
+            deleteTeacher(teacher);
+        }
+
+        teacherStudentMapping.clear();
     }
 }
