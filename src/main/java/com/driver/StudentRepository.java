@@ -40,11 +40,11 @@ public class StudentRepository {
     }
 
     public Student findStudent(String student){
-        return studentMap.getOrDefault(student, null);
+        return studentMap.get(student);
     }
 
     public Teacher findTeacher(String teacher){
-        return teacherMap.getOrDefault(teacher, null);
+        return teacherMap.get(teacher);
     }
 
     public List<String> findStudentsFromTeacher(String teacher){
