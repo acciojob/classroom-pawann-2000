@@ -6,7 +6,7 @@ public class Student {
     private int age;
     private double averageScore;
 
-    public Student(String name, int age, double averageScore){
+    public Student(String name, int age, double averageScore) {
         this.name = name;
         this.age = age;
         this.averageScore = averageScore;
@@ -34,5 +34,14 @@ public class Student {
 
     public void setAverageScore(double averageScore) {
         this.averageScore = averageScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", averageScore=" + averageScore +
+                '}';
     }
 }

@@ -56,7 +56,11 @@ public class StudentRepository {
     }
 
     public List<String> findAllStudents(){
-        return new ArrayList<>(studentMap.keySet());
+        List<String> temp = new ArrayList<>();
+        for(var entry : studentMap.entrySet()){
+            temp.add(entry.getKey());
+        }
+        return temp;
     }
 
     public void deleteTeacher(String teacher){

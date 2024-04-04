@@ -36,4 +36,13 @@ public class Teacher {
     public void setNumberOfStudents(int numberOfStudents) {
         this.numberOfStudents = numberOfStudents;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "name='" + name + '\'' +
+                ", numberOfStudents=" + numberOfStudents +
+                ", age=" + age +
+                '}';
+    }
 }
