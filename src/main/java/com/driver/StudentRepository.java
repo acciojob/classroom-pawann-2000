@@ -27,11 +27,11 @@ public class StudentRepository {
 
     public void saveStudentTeacherPair(String student, String teacher){
         if(studentMap.containsKey(student) && teacherMap.containsKey(teacher)){
-            ArrayList<String> temp = (ArrayList<String>) teacherStudentMapping.get(teacher);
+            List<String> temp = teacherStudentMapping.get(teacher);
             temp.add(student);
             teacherStudentMapping.put(teacher, temp);
         } else {
-            ArrayList<String> temp = new ArrayList<>();
+            List<String> temp = new ArrayList<>();
             temp.add(student);
             teacherStudentMapping.put(teacher, temp);
         }
@@ -48,7 +48,11 @@ public class StudentRepository {
     }
 
     public List<String> findStudentsFromTeacher(String teacher){
-        return teacherStudentMapping.getOrDefault(teacher, new ArrayList<>());
+        List<String> temp = new ArrayList<>();
+        if(teacherStudentMapping.containsKey(teacher)){
+            temp.addAll(teacherStudentMapping.get(teacher));
+        }
+        return temp;
     }
 
     public List<String> findAllStudents(){
@@ -68,7 +72,5 @@ public class StudentRepository {
         for(String teacher: teacherMap.keySet()){
             deleteTeacher(teacher);
         }
-
-        teacherStudentMapping.clear();
     }
 }
