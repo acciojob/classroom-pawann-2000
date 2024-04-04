@@ -26,17 +26,19 @@ public class StudentRepository {
     }
 
     public void saveStudentTeacherPair(String student, String teacher){
-        if(studentMap.containsKey(student) && teacherMap.containsKey(teacher)){
-            List<String> temp = teacherStudentMapping.get(teacher);
-            temp.add(student);
-            teacherStudentMapping.put(teacher, temp);
-        } else {
-            List<String> temp = new ArrayList<>();
-            temp.add(student);
-            teacherStudentMapping.put(teacher, temp);
+        if(studentMap.containsKey(student) && teacherMap.containsKey(teacher)) {
+            if (teacherStudentMapping.containsKey(teacher)) {
+                List<String> temp = teacherStudentMapping.get(teacher);
+                temp.add(student);
+                teacherStudentMapping.put(teacher, temp);
+            } else {
+                List<String> temp = new ArrayList<>();
+                temp.add(student);
+                teacherStudentMapping.put(teacher, temp);
+            }
+            Teacher teacherObject = teacherMap.get(teacher);
+            teacherObject.setNumberOfStudents(teacherObject.getNumberOfStudents() + 1);
         }
-        Teacher teacherObject = teacherMap.get(teacher);
-        teacherObject.setNumberOfStudents(teacherObject.getNumberOfStudents()+1);
     }
 
     public Student findStudent(String student){
